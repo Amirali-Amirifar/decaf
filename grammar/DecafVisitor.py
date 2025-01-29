@@ -159,6 +159,11 @@ class DecafVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by DecafParser#eqExpression.
+    def visitEqExpression(self, ctx:DecafParser.EqExpressionContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by DecafParser#andExpression.
     def visitAndExpression(self, ctx:DecafParser.AndExpressionContext):
         return self.visitChildren(ctx)

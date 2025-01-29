@@ -278,6 +278,15 @@ class DecafListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by DecafParser#eqExpression.
+    def enterEqExpression(self, ctx:DecafParser.EqExpressionContext):
+        pass
+
+    # Exit a parse tree produced by DecafParser#eqExpression.
+    def exitEqExpression(self, ctx:DecafParser.EqExpressionContext):
+        pass
+
+
     # Enter a parse tree produced by DecafParser#andExpression.
     def enterAndExpression(self, ctx:DecafParser.AndExpressionContext):
         pass

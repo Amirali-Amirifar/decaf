@@ -225,11 +225,6 @@ class CodeGenVisitor(DecafVisitor):
         print("VISTI ")
         self.emit(f"{expr};")
 
-    def visitIntLitExpression(self, ctx: DecafParser.IntLitExpressionContext):
-        self.logger.debug(f"Visiting integer literal expression: {ctx.getText()}")
-        value = ctx.IntegerLiteral().getText()
-        return value
-
     def visitWhileStatement(self, ctx: DecafParser.WhileStatementContext):
         self.logger.debug("Enter while statement")
         condition = self.visit(ctx.expression())
@@ -241,6 +236,17 @@ class CodeGenVisitor(DecafVisitor):
         self.visit(ctx.whileBlock())
         self.indentation -= 1
         self.emit("}")
+
+    def visitIntLitExpression(self, ctx: DecafParser.IntLitExpressionContext):
+        self.logger.debug(f"Visiting integer literal expression: {ctx.getText()}")
+        value = ctx.IntegerLiteral().getText()
+        return value
+
+    def visitEqExpression(self, ctx: DecafParser.EqExpressionContext):
+        self.logger.debug(f"Visiting equality expression: {ctx.getText()}")
+        l = self.visit(ctx.expression(0))
+        r = self.visit(ctx.expression(1))
+        return f"{l} == {r}"
 
     def visitArrayAccessExpression(self, ctx: DecafParser.ArrayAccessExpressionContext) -> str:
         self.logger.debug("Visiting array access expression")

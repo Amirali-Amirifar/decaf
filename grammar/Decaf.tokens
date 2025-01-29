@@ -32,12 +32,13 @@ LP=31
 RP=32
 RETURN=33
 EQ=34
-BooleanLiteral=35
-Identifier=36
-IntegerLiteral=37
-WS=38
-MULTILINE_COMMENT=39
-LINE_COMMENT=40
+EQL=35
+BooleanLiteral=36
+Identifier=37
+IntegerLiteral=38
+WS=39
+MULTILINE_COMMENT=40
+LINE_COMMENT=41
 'class'=1
 '{'=2
 'public'=3
@@ -72,3 +73,4 @@ LINE_COMMENT=40
 ')'=32
 'return'=33
 '='=34
+'=='=35

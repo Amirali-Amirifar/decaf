@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,40,253,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,41,256,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,1,0,1,0,5,0,35,8,0,10,0,12,0,38,9,0,1,0,1,0,
         1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -28,77 +28,78 @@ def serializedATN():
         15,1,15,1,15,1,15,1,15,1,15,3,15,206,8,15,1,15,1,15,1,15,1,15,1,
         15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,
         15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,15,1,
-        15,1,15,5,15,240,8,15,10,15,12,15,243,9,15,3,15,245,8,15,1,15,5,
-        15,248,8,15,10,15,12,15,251,9,15,1,15,0,1,30,16,0,2,4,6,8,10,12,
-        14,16,18,20,22,24,26,28,30,0,0,271,0,32,1,0,0,0,2,41,1,0,0,0,4,59,
-        1,0,0,0,6,80,1,0,0,0,8,82,1,0,0,0,10,84,1,0,0,0,12,88,1,0,0,0,14,
-        100,1,0,0,0,16,108,1,0,0,0,18,114,1,0,0,0,20,133,1,0,0,0,22,176,
-        1,0,0,0,24,178,1,0,0,0,26,180,1,0,0,0,28,182,1,0,0,0,30,205,1,0,
-        0,0,32,36,3,2,1,0,33,35,3,4,2,0,34,33,1,0,0,0,35,38,1,0,0,0,36,34,
-        1,0,0,0,36,37,1,0,0,0,37,39,1,0,0,0,38,36,1,0,0,0,39,40,5,0,0,1,
-        40,1,1,0,0,0,41,42,5,1,0,0,42,43,5,36,0,0,43,44,5,2,0,0,44,45,5,
-        3,0,0,45,46,5,4,0,0,46,47,5,5,0,0,47,48,5,6,0,0,48,49,5,31,0,0,49,
-        50,5,7,0,0,50,51,5,28,0,0,51,52,5,29,0,0,52,53,5,36,0,0,53,54,5,
-        32,0,0,54,55,5,2,0,0,55,56,3,22,11,0,56,57,5,8,0,0,57,58,5,8,0,0,
-        58,3,1,0,0,0,59,60,5,1,0,0,60,63,5,36,0,0,61,62,5,9,0,0,62,64,5,
-        36,0,0,63,61,1,0,0,0,63,64,1,0,0,0,64,65,1,0,0,0,65,69,5,2,0,0,66,
-        68,3,6,3,0,67,66,1,0,0,0,68,71,1,0,0,0,69,67,1,0,0,0,69,70,1,0,0,
-        0,70,75,1,0,0,0,71,69,1,0,0,0,72,74,3,12,6,0,73,72,1,0,0,0,74,77,
-        1,0,0,0,75,73,1,0,0,0,75,76,1,0,0,0,76,78,1,0,0,0,77,75,1,0,0,0,
-        78,79,5,8,0,0,79,5,1,0,0,0,80,81,3,10,5,0,81,7,1,0,0,0,82,83,3,10,
-        5,0,83,9,1,0,0,0,84,85,3,20,10,0,85,86,5,36,0,0,86,87,5,10,0,0,87,
-        11,1,0,0,0,88,89,5,3,0,0,89,90,3,20,10,0,90,91,5,36,0,0,91,93,5,
-        31,0,0,92,94,3,14,7,0,93,92,1,0,0,0,93,94,1,0,0,0,94,95,1,0,0,0,
-        95,96,5,32,0,0,96,97,5,2,0,0,97,98,3,18,9,0,98,99,5,8,0,0,99,13,
-        1,0,0,0,100,105,3,16,8,0,101,102,5,11,0,0,102,104,3,16,8,0,103,101,
-        1,0,0,0,104,107,1,0,0,0,105,103,1,0,0,0,105,106,1,0,0,0,106,15,1,
-        0,0,0,107,105,1,0,0,0,108,109,3,20,10,0,109,110,5,36,0,0,110,17,
-        1,0,0,0,111,113,3,8,4,0,112,111,1,0,0,0,113,116,1,0,0,0,114,112,
-        1,0,0,0,114,115,1,0,0,0,115,120,1,0,0,0,116,114,1,0,0,0,117,119,
-        3,22,11,0,118,117,1,0,0,0,119,122,1,0,0,0,120,118,1,0,0,0,120,121,
-        1,0,0,0,121,123,1,0,0,0,122,120,1,0,0,0,123,124,5,33,0,0,124,125,
-        3,30,15,0,125,126,5,10,0,0,126,19,1,0,0,0,127,128,5,12,0,0,128,129,
-        5,28,0,0,129,134,5,29,0,0,130,134,5,13,0,0,131,134,5,12,0,0,132,
-        134,5,36,0,0,133,127,1,0,0,0,133,130,1,0,0,0,133,131,1,0,0,0,133,
-        132,1,0,0,0,134,21,1,0,0,0,135,139,5,2,0,0,136,138,3,22,11,0,137,
-        136,1,0,0,0,138,141,1,0,0,0,139,137,1,0,0,0,139,140,1,0,0,0,140,
-        142,1,0,0,0,141,139,1,0,0,0,142,177,5,8,0,0,143,144,5,14,0,0,144,
-        145,5,31,0,0,145,146,3,30,15,0,146,147,5,32,0,0,147,148,3,24,12,
-        0,148,149,5,15,0,0,149,150,3,26,13,0,150,177,1,0,0,0,151,152,5,16,
-        0,0,152,153,5,31,0,0,153,154,3,30,15,0,154,155,5,32,0,0,155,156,
-        3,28,14,0,156,177,1,0,0,0,157,158,5,17,0,0,158,159,5,31,0,0,159,
-        160,3,30,15,0,160,161,5,32,0,0,161,162,5,10,0,0,162,177,1,0,0,0,
-        163,164,5,36,0,0,164,165,5,34,0,0,165,166,3,30,15,0,166,167,5,10,
-        0,0,167,177,1,0,0,0,168,169,5,36,0,0,169,170,5,28,0,0,170,171,3,
-        30,15,0,171,172,5,29,0,0,172,173,5,34,0,0,173,174,3,30,15,0,174,
-        175,5,10,0,0,175,177,1,0,0,0,176,135,1,0,0,0,176,143,1,0,0,0,176,
-        151,1,0,0,0,176,157,1,0,0,0,176,163,1,0,0,0,176,168,1,0,0,0,177,
-        23,1,0,0,0,178,179,3,22,11,0,179,25,1,0,0,0,180,181,3,22,11,0,181,
-        27,1,0,0,0,182,183,3,22,11,0,183,29,1,0,0,0,184,185,6,15,-1,0,185,
-        186,5,27,0,0,186,206,3,30,15,14,187,188,5,19,0,0,188,189,5,12,0,
-        0,189,190,5,28,0,0,190,191,3,30,15,0,191,192,5,29,0,0,192,206,1,
-        0,0,0,193,194,5,19,0,0,194,195,5,36,0,0,195,196,5,31,0,0,196,206,
-        5,32,0,0,197,206,5,37,0,0,198,206,5,35,0,0,199,206,5,36,0,0,200,
+        15,1,15,1,15,1,15,1,15,5,15,243,8,15,10,15,12,15,246,9,15,3,15,248,
+        8,15,1,15,5,15,251,8,15,10,15,12,15,254,9,15,1,15,0,1,30,16,0,2,
+        4,6,8,10,12,14,16,18,20,22,24,26,28,30,0,0,275,0,32,1,0,0,0,2,41,
+        1,0,0,0,4,59,1,0,0,0,6,80,1,0,0,0,8,82,1,0,0,0,10,84,1,0,0,0,12,
+        88,1,0,0,0,14,100,1,0,0,0,16,108,1,0,0,0,18,114,1,0,0,0,20,133,1,
+        0,0,0,22,176,1,0,0,0,24,178,1,0,0,0,26,180,1,0,0,0,28,182,1,0,0,
+        0,30,205,1,0,0,0,32,36,3,2,1,0,33,35,3,4,2,0,34,33,1,0,0,0,35,38,
+        1,0,0,0,36,34,1,0,0,0,36,37,1,0,0,0,37,39,1,0,0,0,38,36,1,0,0,0,
+        39,40,5,0,0,1,40,1,1,0,0,0,41,42,5,1,0,0,42,43,5,37,0,0,43,44,5,
+        2,0,0,44,45,5,3,0,0,45,46,5,4,0,0,46,47,5,5,0,0,47,48,5,6,0,0,48,
+        49,5,31,0,0,49,50,5,7,0,0,50,51,5,28,0,0,51,52,5,29,0,0,52,53,5,
+        37,0,0,53,54,5,32,0,0,54,55,5,2,0,0,55,56,3,22,11,0,56,57,5,8,0,
+        0,57,58,5,8,0,0,58,3,1,0,0,0,59,60,5,1,0,0,60,63,5,37,0,0,61,62,
+        5,9,0,0,62,64,5,37,0,0,63,61,1,0,0,0,63,64,1,0,0,0,64,65,1,0,0,0,
+        65,69,5,2,0,0,66,68,3,6,3,0,67,66,1,0,0,0,68,71,1,0,0,0,69,67,1,
+        0,0,0,69,70,1,0,0,0,70,75,1,0,0,0,71,69,1,0,0,0,72,74,3,12,6,0,73,
+        72,1,0,0,0,74,77,1,0,0,0,75,73,1,0,0,0,75,76,1,0,0,0,76,78,1,0,0,
+        0,77,75,1,0,0,0,78,79,5,8,0,0,79,5,1,0,0,0,80,81,3,10,5,0,81,7,1,
+        0,0,0,82,83,3,10,5,0,83,9,1,0,0,0,84,85,3,20,10,0,85,86,5,37,0,0,
+        86,87,5,10,0,0,87,11,1,0,0,0,88,89,5,3,0,0,89,90,3,20,10,0,90,91,
+        5,37,0,0,91,93,5,31,0,0,92,94,3,14,7,0,93,92,1,0,0,0,93,94,1,0,0,
+        0,94,95,1,0,0,0,95,96,5,32,0,0,96,97,5,2,0,0,97,98,3,18,9,0,98,99,
+        5,8,0,0,99,13,1,0,0,0,100,105,3,16,8,0,101,102,5,11,0,0,102,104,
+        3,16,8,0,103,101,1,0,0,0,104,107,1,0,0,0,105,103,1,0,0,0,105,106,
+        1,0,0,0,106,15,1,0,0,0,107,105,1,0,0,0,108,109,3,20,10,0,109,110,
+        5,37,0,0,110,17,1,0,0,0,111,113,3,8,4,0,112,111,1,0,0,0,113,116,
+        1,0,0,0,114,112,1,0,0,0,114,115,1,0,0,0,115,120,1,0,0,0,116,114,
+        1,0,0,0,117,119,3,22,11,0,118,117,1,0,0,0,119,122,1,0,0,0,120,118,
+        1,0,0,0,120,121,1,0,0,0,121,123,1,0,0,0,122,120,1,0,0,0,123,124,
+        5,33,0,0,124,125,3,30,15,0,125,126,5,10,0,0,126,19,1,0,0,0,127,128,
+        5,12,0,0,128,129,5,28,0,0,129,134,5,29,0,0,130,134,5,13,0,0,131,
+        134,5,12,0,0,132,134,5,37,0,0,133,127,1,0,0,0,133,130,1,0,0,0,133,
+        131,1,0,0,0,133,132,1,0,0,0,134,21,1,0,0,0,135,139,5,2,0,0,136,138,
+        3,22,11,0,137,136,1,0,0,0,138,141,1,0,0,0,139,137,1,0,0,0,139,140,
+        1,0,0,0,140,142,1,0,0,0,141,139,1,0,0,0,142,177,5,8,0,0,143,144,
+        5,14,0,0,144,145,5,31,0,0,145,146,3,30,15,0,146,147,5,32,0,0,147,
+        148,3,24,12,0,148,149,5,15,0,0,149,150,3,26,13,0,150,177,1,0,0,0,
+        151,152,5,16,0,0,152,153,5,31,0,0,153,154,3,30,15,0,154,155,5,32,
+        0,0,155,156,3,28,14,0,156,177,1,0,0,0,157,158,5,17,0,0,158,159,5,
+        31,0,0,159,160,3,30,15,0,160,161,5,32,0,0,161,162,5,10,0,0,162,177,
+        1,0,0,0,163,164,5,37,0,0,164,165,5,34,0,0,165,166,3,30,15,0,166,
+        167,5,10,0,0,167,177,1,0,0,0,168,169,5,37,0,0,169,170,5,28,0,0,170,
+        171,3,30,15,0,171,172,5,29,0,0,172,173,5,34,0,0,173,174,3,30,15,
+        0,174,175,5,10,0,0,175,177,1,0,0,0,176,135,1,0,0,0,176,143,1,0,0,
+        0,176,151,1,0,0,0,176,157,1,0,0,0,176,163,1,0,0,0,176,168,1,0,0,
+        0,177,23,1,0,0,0,178,179,3,22,11,0,179,25,1,0,0,0,180,181,3,22,11,
+        0,181,27,1,0,0,0,182,183,3,22,11,0,183,29,1,0,0,0,184,185,6,15,-1,
+        0,185,186,5,27,0,0,186,206,3,30,15,15,187,188,5,19,0,0,188,189,5,
+        12,0,0,189,190,5,28,0,0,190,191,3,30,15,0,191,192,5,29,0,0,192,206,
+        1,0,0,0,193,194,5,19,0,0,194,195,5,37,0,0,195,196,5,31,0,0,196,206,
+        5,32,0,0,197,206,5,38,0,0,198,206,5,36,0,0,199,206,5,37,0,0,200,
         206,5,20,0,0,201,202,5,31,0,0,202,203,3,30,15,0,203,204,5,32,0,0,
         204,206,1,0,0,0,205,184,1,0,0,0,205,187,1,0,0,0,205,193,1,0,0,0,
         205,197,1,0,0,0,205,198,1,0,0,0,205,199,1,0,0,0,205,200,1,0,0,0,
-        205,201,1,0,0,0,206,249,1,0,0,0,207,208,10,11,0,0,208,209,5,26,0,
-        0,209,248,3,30,15,12,210,211,10,10,0,0,211,212,5,25,0,0,212,248,
-        3,30,15,11,213,214,10,9,0,0,214,215,5,23,0,0,215,248,3,30,15,10,
-        216,217,10,8,0,0,217,218,5,24,0,0,218,248,3,30,15,9,219,220,10,7,
-        0,0,220,221,5,22,0,0,221,248,3,30,15,8,222,223,10,6,0,0,223,224,
-        5,21,0,0,224,248,3,30,15,7,225,226,10,17,0,0,226,227,5,28,0,0,227,
-        228,3,30,15,0,228,229,5,29,0,0,229,248,1,0,0,0,230,231,10,16,0,0,
-        231,248,5,30,0,0,232,233,10,15,0,0,233,234,5,18,0,0,234,235,5,36,
-        0,0,235,244,5,31,0,0,236,241,3,30,15,0,237,238,5,11,0,0,238,240,
-        3,30,15,0,239,237,1,0,0,0,240,243,1,0,0,0,241,239,1,0,0,0,241,242,
-        1,0,0,0,242,245,1,0,0,0,243,241,1,0,0,0,244,236,1,0,0,0,244,245,
-        1,0,0,0,245,246,1,0,0,0,246,248,5,32,0,0,247,207,1,0,0,0,247,210,
-        1,0,0,0,247,213,1,0,0,0,247,216,1,0,0,0,247,219,1,0,0,0,247,222,
-        1,0,0,0,247,225,1,0,0,0,247,230,1,0,0,0,247,232,1,0,0,0,248,251,
-        1,0,0,0,249,247,1,0,0,0,249,250,1,0,0,0,250,31,1,0,0,0,251,249,1,
-        0,0,0,16,36,63,69,75,93,105,114,120,133,139,176,205,241,244,247,
-        249
+        205,201,1,0,0,0,206,252,1,0,0,0,207,208,10,12,0,0,208,209,5,26,0,
+        0,209,251,3,30,15,13,210,211,10,11,0,0,211,212,5,25,0,0,212,251,
+        3,30,15,12,213,214,10,10,0,0,214,215,5,23,0,0,215,251,3,30,15,11,
+        216,217,10,9,0,0,217,218,5,24,0,0,218,251,3,30,15,10,219,220,10,
+        8,0,0,220,221,5,22,0,0,221,251,3,30,15,9,222,223,10,7,0,0,223,224,
+        5,35,0,0,224,251,3,30,15,8,225,226,10,6,0,0,226,227,5,21,0,0,227,
+        251,3,30,15,7,228,229,10,18,0,0,229,230,5,28,0,0,230,231,3,30,15,
+        0,231,232,5,29,0,0,232,251,1,0,0,0,233,234,10,17,0,0,234,251,5,30,
+        0,0,235,236,10,16,0,0,236,237,5,18,0,0,237,238,5,37,0,0,238,247,
+        5,31,0,0,239,244,3,30,15,0,240,241,5,11,0,0,241,243,3,30,15,0,242,
+        240,1,0,0,0,243,246,1,0,0,0,244,242,1,0,0,0,244,245,1,0,0,0,245,
+        248,1,0,0,0,246,244,1,0,0,0,247,239,1,0,0,0,247,248,1,0,0,0,248,
+        249,1,0,0,0,249,251,5,32,0,0,250,207,1,0,0,0,250,210,1,0,0,0,250,
+        213,1,0,0,0,250,216,1,0,0,0,250,219,1,0,0,0,250,222,1,0,0,0,250,
+        225,1,0,0,0,250,228,1,0,0,0,250,233,1,0,0,0,250,235,1,0,0,0,251,
+        254,1,0,0,0,252,250,1,0,0,0,252,253,1,0,0,0,253,31,1,0,0,0,254,252,
+        1,0,0,0,16,36,63,69,75,93,105,114,120,133,139,176,205,244,247,250,
+        252
     ]
 
 class DecafParser ( Parser ):
@@ -117,7 +118,7 @@ class DecafParser ( Parser ):
                      "'while'", "'System.out.println'", "'.'", "'new'", 
                      "'this'", "'&&'", "'<'", "'+'", "'-'", "'*'", "'**'", 
                      "'!'", "'['", "']'", "'.length'", "'('", "')'", "'return'", 
-                     "'='" ]
+                     "'='", "'=='" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
@@ -126,8 +127,8 @@ class DecafParser ( Parser ):
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "AND", "LT", "PLUS", "MINUS", "TIMES", 
                       "POWER", "NOT", "LSB", "RSB", "DOTLENGTH", "LP", "RP", 
-                      "RETURN", "EQ", "BooleanLiteral", "Identifier", "IntegerLiteral", 
-                      "WS", "MULTILINE_COMMENT", "LINE_COMMENT" ]
+                      "RETURN", "EQ", "EQL", "BooleanLiteral", "Identifier", 
+                      "IntegerLiteral", "WS", "MULTILINE_COMMENT", "LINE_COMMENT" ]
 
     RULE_goal = 0
     RULE_mainClass = 1
@@ -186,12 +187,13 @@ class DecafParser ( Parser ):
     RP=32
     RETURN=33
     EQ=34
-    BooleanLiteral=35
-    Identifier=36
-    IntegerLiteral=37
-    WS=38
-    MULTILINE_COMMENT=39
-    LINE_COMMENT=40
+    EQL=35
+    BooleanLiteral=36
+    Identifier=37
+    IntegerLiteral=38
+    WS=39
+    MULTILINE_COMMENT=40
+    LINE_COMMENT=41
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -444,7 +446,7 @@ class DecafParser ( Parser ):
             self.state = 69
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 68719489024) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 137438965760) != 0):
                 self.state = 66
                 self.fieldDeclaration()
                 self.state = 71
@@ -689,7 +691,7 @@ class DecafParser ( Parser ):
             self.state = 93
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 68719489024) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 137438965760) != 0):
                 self.state = 92
                 self.parameterList()
 
@@ -897,7 +899,7 @@ class DecafParser ( Parser ):
             self.state = 120
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 68719689732) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 137439166468) != 0):
                 self.state = 117
                 self.statement()
                 self.state = 122
@@ -1225,7 +1227,7 @@ class DecafParser ( Parser ):
                 self.state = 139
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while (((_la) & ~0x3f) == 0 and ((1 << _la) & 68719689732) != 0):
+                while (((_la) & ~0x3f) == 0 and ((1 << _la) & 137439166468) != 0):
                     self.state = 136
                     self.statement()
                     self.state = 141
@@ -1766,6 +1768,36 @@ class DecafParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
+    class EqExpressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a DecafParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expression(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(DecafParser.ExpressionContext)
+            else:
+                return self.getTypedRuleContext(DecafParser.ExpressionContext,i)
+
+        def EQL(self):
+            return self.getToken(DecafParser.EQL, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterEqExpression" ):
+                listener.enterEqExpression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitEqExpression" ):
+                listener.exitEqExpression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitEqExpression" ):
+                return visitor.visitEqExpression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
     class AndExpressionContext(ExpressionContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a DecafParser.ExpressionContext
@@ -1989,7 +2021,7 @@ class DecafParser ( Parser ):
                 self.state = 185
                 self.match(DecafParser.NOT)
                 self.state = 186
-                self.expression(14)
+                self.expression(15)
                 pass
 
             elif la_ == 2:
@@ -2068,7 +2100,7 @@ class DecafParser ( Parser ):
 
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 249
+            self.state = 252
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
@@ -2076,152 +2108,165 @@ class DecafParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 247
+                    self.state = 250
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,14,self._ctx)
                     if la_ == 1:
                         localctx = DecafParser.PowExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 207
-                        if not self.precpred(self._ctx, 11):
+                        if not self.precpred(self._ctx, 12):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
                         self.state = 208
                         self.match(DecafParser.POWER)
                         self.state = 209
-                        self.expression(12)
+                        self.expression(13)
                         pass
 
                     elif la_ == 2:
                         localctx = DecafParser.MulExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 210
-                        if not self.precpred(self._ctx, 10):
+                        if not self.precpred(self._ctx, 11):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
                         self.state = 211
                         self.match(DecafParser.TIMES)
                         self.state = 212
-                        self.expression(11)
+                        self.expression(12)
                         pass
 
                     elif la_ == 3:
                         localctx = DecafParser.AddExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 213
-                        if not self.precpred(self._ctx, 9):
+                        if not self.precpred(self._ctx, 10):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
                         self.state = 214
                         self.match(DecafParser.PLUS)
                         self.state = 215
-                        self.expression(10)
+                        self.expression(11)
                         pass
 
                     elif la_ == 4:
                         localctx = DecafParser.SubExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 216
-                        if not self.precpred(self._ctx, 8):
+                        if not self.precpred(self._ctx, 9):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
                         self.state = 217
                         self.match(DecafParser.MINUS)
                         self.state = 218
-                        self.expression(9)
+                        self.expression(10)
                         pass
 
                     elif la_ == 5:
                         localctx = DecafParser.LtExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 219
-                        if not self.precpred(self._ctx, 7):
+                        if not self.precpred(self._ctx, 8):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
                         self.state = 220
                         self.match(DecafParser.LT)
                         self.state = 221
-                        self.expression(8)
+                        self.expression(9)
                         pass
 
                     elif la_ == 6:
-                        localctx = DecafParser.AndExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
+                        localctx = DecafParser.EqExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 222
-                        if not self.precpred(self._ctx, 6):
+                        if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
                         self.state = 223
-                        self.match(DecafParser.AND)
+                        self.match(DecafParser.EQL)
                         self.state = 224
-                        self.expression(7)
+                        self.expression(8)
                         pass
 
                     elif la_ == 7:
-                        localctx = DecafParser.ArrayAccessExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
+                        localctx = DecafParser.AndExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 225
-                        if not self.precpred(self._ctx, 17):
+                        if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 17)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
                         self.state = 226
-                        self.match(DecafParser.LSB)
+                        self.match(DecafParser.AND)
                         self.state = 227
-                        self.expression(0)
-                        self.state = 228
-                        self.match(DecafParser.RSB)
+                        self.expression(7)
                         pass
 
                     elif la_ == 8:
-                        localctx = DecafParser.ArrayLengthExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
+                        localctx = DecafParser.ArrayAccessExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 230
-                        if not self.precpred(self._ctx, 16):
+                        self.state = 228
+                        if not self.precpred(self._ctx, 18):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 16)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 18)")
+                        self.state = 229
+                        self.match(DecafParser.LSB)
+                        self.state = 230
+                        self.expression(0)
                         self.state = 231
-                        self.match(DecafParser.DOTLENGTH)
+                        self.match(DecafParser.RSB)
                         pass
 
                     elif la_ == 9:
+                        localctx = DecafParser.ArrayLengthExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
+                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
+                        self.state = 233
+                        if not self.precpred(self._ctx, 17):
+                            from antlr4.error.Errors import FailedPredicateException
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 17)")
+                        self.state = 234
+                        self.match(DecafParser.DOTLENGTH)
+                        pass
+
+                    elif la_ == 10:
                         localctx = DecafParser.MethodCallExpressionContext(self, DecafParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 232
-                        if not self.precpred(self._ctx, 15):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 15)")
-                        self.state = 233
-                        self.match(DecafParser.T__17)
-                        self.state = 234
-                        self.match(DecafParser.Identifier)
                         self.state = 235
+                        if not self.precpred(self._ctx, 16):
+                            from antlr4.error.Errors import FailedPredicateException
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 16)")
+                        self.state = 236
+                        self.match(DecafParser.T__17)
+                        self.state = 237
+                        self.match(DecafParser.Identifier)
+                        self.state = 238
                         self.match(DecafParser.LP)
-                        self.state = 244
+                        self.state = 247
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        if (((_la) & ~0x3f) == 0 and ((1 << _la) & 242801442816) != 0):
-                            self.state = 236
+                        if (((_la) & ~0x3f) == 0 and ((1 << _la) & 483319611392) != 0):
+                            self.state = 239
                             self.expression(0)
-                            self.state = 241
+                            self.state = 244
                             self._errHandler.sync(self)
                             _la = self._input.LA(1)
                             while _la==11:
-                                self.state = 237
+                                self.state = 240
                                 self.match(DecafParser.T__10)
-                                self.state = 238
+                                self.state = 241
                                 self.expression(0)
-                                self.state = 243
+                                self.state = 246
                                 self._errHandler.sync(self)
                                 _la = self._input.LA(1)
 
 
 
-                        self.state = 246
+                        self.state = 249
                         self.match(DecafParser.RP)
                         pass
 
              
-                self.state = 251
+                self.state = 254
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
 
@@ -2247,39 +2292,43 @@ class DecafParser ( Parser ):
 
     def expression_sempred(self, localctx:ExpressionContext, predIndex:int):
             if predIndex == 0:
-                return self.precpred(self._ctx, 11)
+                return self.precpred(self._ctx, 12)
          
 
             if predIndex == 1:
-                return self.precpred(self._ctx, 10)
+                return self.precpred(self._ctx, 11)
          
 
             if predIndex == 2:
-                return self.precpred(self._ctx, 9)
+                return self.precpred(self._ctx, 10)
          
 
             if predIndex == 3:
-                return self.precpred(self._ctx, 8)
+                return self.precpred(self._ctx, 9)
          
 
             if predIndex == 4:
-                return self.precpred(self._ctx, 7)
+                return self.precpred(self._ctx, 8)
          
 
             if predIndex == 5:
-                return self.precpred(self._ctx, 6)
+                return self.precpred(self._ctx, 7)
          
 
             if predIndex == 6:
-                return self.precpred(self._ctx, 17)
+                return self.precpred(self._ctx, 6)
          
 
             if predIndex == 7:
-                return self.precpred(self._ctx, 16)
+                return self.precpred(self._ctx, 18)
          
 
             if predIndex == 8:
-                return self.precpred(self._ctx, 15)
+                return self.precpred(self._ctx, 17)
+         
+
+            if predIndex == 9:
+                return self.precpred(self._ctx, 16)
          
 
 
