@@ -1,6 +1,6 @@
 class Main {
     public static void main(String[] args) {
-        System.out.println(10 + 2 * 3 - 2);
+        System.out.println(new Calculator().init());
     }
 }
 
@@ -8,12 +8,14 @@ class Calculator {
     int result;
     int[] numbers;
 
-    public int init(int size) {
-        numbers = new int[size];
-        result = 0;
+    public int init() {
+        numbers = new int[4];
+        numbers[0] = 4;
+        numbers[1] = 6;
+        numbers[2] = 10;
+        numbers[3] = 12;
         return 0;
     }
-
     public int add(int a, int b) {
         int temp;
         temp = a + b;
