@@ -66,12 +66,23 @@ class CodeGenVisitor(DecafVisitor):
     
     def visitClassDeclaration(self, ctx: DecafParser.ClassDeclarationContext):
         class_name = ctx.Identifier(0).getText()
+        parent_class = None
         
         self.logger.debug(f"visitClassDeclaration: visiting class {class_name}")
+        
+        # Check if class extends another class
+        if len(ctx.Identifier()) > 1:
+            parent_class = ctx.Identifier(1).getText()
+            self.logger.debug(f"Class {class_name} extends {parent_class}")
         
         # Generate struct for class
         self.emit(f"typedef struct {class_name} {{")
         self.indentation += 1
+        
+        # If class extends another, include parent's fields first
+        if parent_class:
+            self.emit(f"// Inherited fields from {parent_class}")
+            self.emit(f"{parent_class} parent;  // Parent class fields")
         
         # Generate fields
         self.logger.debug(f"visitClassDeclaration: visiting fields")
@@ -80,23 +91,43 @@ class CodeGenVisitor(DecafVisitor):
         
         # Add vtable pointer if needed
         self.logger.debug(f"visitClassDeclaration: emitting {class_name}_vtable *vptr;")
-        if ctx.methodDeclaration():
+        if ctx.methodDeclaration() or parent_class:
             self.emit(f"struct {class_name}_vtable *vptr;")
         
         self.indentation -= 1
         self.emit(f"}} {class_name};")
         self.emit("")
         
-        # Generate vtable if class has methods
-        self.logger.debug(f"visitClassDeclaration: generate method method structs")
-        if ctx.methodDeclaration():
+        # Generate vtable if class has methods or inherits methods
+        self.logger.debug(f"visitClassDeclaration: generate method structs")
+        if ctx.methodDeclaration() or parent_class:
             self.generateStructs(ctx)
+        
+        # Generate constructor function
+        if parent_class:
+            self.generateConstructor(class_name, parent_class)
         
         # Generate methods
         self.logger.debug(f"visitClassDeclaration: visiting and generating methods.")
         for method in ctx.methodDeclaration():
             self.visit(method)
             self.emit("")
+    
+    def generateConstructor(self, class_name: str, parent_class: str):
+        self.emit(f"{class_name}* new_{class_name}() {{")
+        self.indentation += 1
+        self.emit(f"{class_name}* obj = ({class_name}*)malloc(sizeof({class_name}));")
+        self.emit(f"// Initialize vtable")
+        self.emit(f"static struct {class_name}_vtable vtable = {{")
+        self.indentation += 1
+        self.emit(f"// TODO: Initialize vtable function pointers")
+        self.indentation -= 1
+        self.emit("};")
+        self.emit(f"obj->vptr = &vtable;")
+        self.emit(f"return obj;")
+        self.indentation -= 1
+        self.emit("}")
+        self.emit("")
     
     def generateStructs(self, ctx: DecafParser.ClassDeclarationContext):
         class_name = ctx.Identifier(0).getText()
@@ -214,7 +245,11 @@ class CodeGenVisitor(DecafVisitor):
             self.visit(ctx.elseBlock())
             self.indentation -= 1
         self.emit("}")
-    
+    def visitArrayAssignmentStatement(self, ctx: DecafParser.ArrayAssignmentStatementContext):
+        var_name = ctx.Identifier()
+        index = self.visit(ctx.expression(0))
+        value = self.visit(ctx.expression(1))
+        self.emit(f"{var_name}[{index}] = {value};")
     
     def visitPrintStatement(self, ctx: DecafParser.StatementContext):
         expr = self.visit(ctx.expression())
@@ -287,24 +322,36 @@ class CodeGenVisitor(DecafVisitor):
         self.logger.debug("Visiting power expression")
         base = self.visit(ctx.expression(0))
         exp = self.visit(ctx.expression(1))
+        # Check if both operands are integer literals
+        if base.isdigit() and exp.isdigit():
+            return str(pow(int(base), int(exp)))
         return f"pow({base}, {exp})"
 
     def visitMulExpression(self, ctx: DecafParser.MulExpressionContext) -> str:
         self.logger.debug("Visiting multiplication expression")
         left = self.visit(ctx.expression(0))
         right = self.visit(ctx.expression(1))
+        # Check if both operands are integer literals
+        if left.isdigit() and right.isdigit():
+            return str(int(left) * int(right))
         return f"{left} * {right}"
 
     def visitAddExpression(self, ctx: DecafParser.AddExpressionContext) -> str:
         self.logger.debug("Visiting addition expression")
         left = self.visit(ctx.expression(0))
         right = self.visit(ctx.expression(1))
+        # Check if both operands are integer literals
+        if left.isdigit() and right.isdigit():
+            return str(int(left) + int(right))
         return f"{left} + {right}"
 
     def visitSubExpression(self, ctx: DecafParser.SubExpressionContext) -> str:
         self.logger.debug("Visiting subtraction expression")
         left = self.visit(ctx.expression(0))
         right = self.visit(ctx.expression(1))
+        # Check if both operands are integer literals
+        if left.isdigit() and right.isdigit():
+            return str(int(left) - int(right))
         return f"{left} - {right}"
 
     def visitLtExpression(self, ctx: DecafParser.LtExpressionContext) -> str:
