@@ -1,220 +1,117 @@
 grammar Decaf;
 
-goal
-:	mainClass classDeclaration* EOF
-;
+goal: mainClass classDeclaration* EOF;
 
+mainClass:
+	'class' Identifier '{' 'public' 'static' 'void' 'main' '(' 'String' '[' ']' Identifier ')' '{'
+		statement '}' '}';
 
-mainClass
-:	'class' Identifier '{' 'public' 'static' 'void' 'main' '(' 'String' '[' ']' Identifier ')' '{' statement '}' '}';
+classDeclaration:
+	'class' Identifier ('extends' Identifier)? '{' fieldDeclaration* methodDeclaration* '}';
 
-classDeclaration
-:	'class' Identifier ( 'extends' Identifier )? '{' fieldDeclaration* methodDeclaration* '}';
+fieldDeclaration: varDeclaration;
 
-fieldDeclaration
-:	varDeclaration ;
+localDeclaration: varDeclaration;
 
-localDeclaration
-:	varDeclaration ;
+varDeclaration: type Identifier ';';
 
-varDeclaration
-:	type Identifier ';';
+methodDeclaration:
+	'public' type Identifier '(' parameterList? ')' '{' methodBody '}';
 
-methodDeclaration
-:	'public' type Identifier '(' parameterList? ')' '{' methodBody '}';
+parameterList: parameter (',' parameter)*;
 
-parameterList
-:   parameter (',' parameter)*
-;
+parameter: type Identifier;
 
-parameter
-:   type Identifier
-;
+methodBody: localDeclaration* statement* RETURN expression ';';
 
-methodBody
-:	localDeclaration* statement* RETURN expression ';'
-;
+type: 'int' '[' ']' | 'boolean' | 'int' | Identifier;
 
-type
-:	'int' '[' ']'
-|	'boolean'
-|	'int'
-|	Identifier
-;
+statement:
+	'{' statement* '}'									# nestedStatement
+	| 'if' LP expression RP ifBlock 'else' elseBlock	# ifElseStatement
+	| 'while' LP expression RP whileBlock				# whileStatement
+	| 'System.out.println' LP expression RP ';'			# printStatement
+	| Identifier EQ expression ';'						# variableAssignmentStatement
+	| Identifier LSB expression RSB EQ expression ';'	# arrayAssignmentStatement;
 
-statement
-:	'{' statement* '}'
-#nestedStatement
-|	'if' LP expression RP ifBlock 'else' elseBlock
-#ifElseStatement
-|	'while' LP expression RP whileBlock
-#whileStatement
-|	'System.out.println' LP  expression RP ';'
-#printStatement
-|	Identifier EQ expression ';'
-#variableAssignmentStatement
-|	Identifier LSB expression RSB EQ expression ';'
-#arrayAssignmentStatement
-;
+ifBlock: statement;
 
-ifBlock
-:	statement
-;
+elseBlock: statement;
 
-elseBlock
-:	statement
-;
+whileBlock: statement;
 
-whileBlock
-:	statement
-;
+expression:
+	expression LSB expression RSB	# arrayAccessExpression
+	| expression DOTLENGTH			# arrayLengthExpression
+	| expression '.' Identifier '(' (
+		expression ( ',' expression)*
+	)? ')'								# methodCallExpression
+	| NOT expression					# notExpression
+	| 'new' 'int' LSB expression RSB	# arrayInstantiationExpression
+	| 'new' Identifier '(' ')'			# objectInstantiationExpression
+	| expression POWER expression		# powExpression
+	| expression TIMES expression		# mulExpression
+	| expression PLUS expression		# addExpression
+	| expression MINUS expression		# subExpression
+	| expression LT expression			# ltExpression
+	| expression EQL expression			# eqExpression
+	| expression AND expression			# andExpression
+	| IntegerLiteral					# intLitExpression
+	| BooleanLiteral					# booleanLitExpression
+	| Identifier						# identifierExpression
+	| 'this'							# thisExpression
+	| '(' expression ')'				# parenExpression;
 
-expression
-:   expression LSB expression RSB
-# arrayAccessExpression
-
-|   expression DOTLENGTH
-# arrayLengthExpression
-
-|   expression '.' Identifier '(' ( expression ( ',' expression )* )? ')'
-# methodCallExpression
-
-|   NOT expression
-# notExpression
-
-|   'new' 'int' LSB expression RSB
-# arrayInstantiationExpression
-
-|   'new' Identifier '(' ')'
-# objectInstantiationExpression
-
-|	expression POWER expression
-# powExpression
-
-|   expression TIMES expression
-# mulExpression
-
-|   expression PLUS expression
-# addExpression
-
-|   expression MINUS expression
-# subExpression
-
-|   expression LT expression
-# ltExpression
-
-|   expression AND expression
-# andExpression
-
-|   IntegerLiteral
-# intLitExpression
-
-|   BooleanLiteral
-# booleanLitExpression
-
-|   Identifier
-# identifierExpression
-
-|   'this'
-# thisExpression
-
-|   '(' expression ')'
-# parenExpression
-;
-
-AND:'&&';
-LT:'<';
-PLUS:'+';
-MINUS:'-';
-TIMES:'*';
-POWER:'**';
-NOT:'!';
-LSB:'[';
-RSB:']';
-DOTLENGTH:'.length';
-LP:'(';
-RP:')';
+AND: '&&';
+LT: '<';
+PLUS: '+';
+MINUS: '-';
+TIMES: '*';
+POWER: '**';
+NOT: '!';
+LSB: '[';
+RSB: ']';
+DOTLENGTH: '.length';
+LP: '(';
+RP: ')';
 RETURN: 'return';
 EQ: '=';
+EQL: '==';
 
-BooleanLiteral
-:	'true'
-|	'false'
-;
+BooleanLiteral: 'true' | 'false';
 
-Identifier
-:	JavaLetter JavaLetterOrDigit*
-;
+Identifier: JavaLetter JavaLetterOrDigit*;
 
-fragment
-JavaLetter
-:	[a-zA-Z$_] // these are the 'java letters' below 0xFF
-;
+fragment JavaLetter:
+	[a-zA-Z$_] ; // these are the 'java letters' below 0xFF
 
-fragment
-JavaLetterOrDigit
-:	[a-zA-Z0-9$_] // these are the 'java letters or digits' below 0xFF
-;
+fragment JavaLetterOrDigit:
+	[a-zA-Z0-9$_] ; // these are the 'java letters or digits' below 0xFF
 
-IntegerLiteral
-:	DecimalIntegerLiteral
-;
+IntegerLiteral: DecimalIntegerLiteral;
 
-fragment
-DecimalIntegerLiteral
-:	DecimalNumeral IntegertypeSuffix?
-;
+fragment DecimalIntegerLiteral:
+	DecimalNumeral IntegertypeSuffix?;
 
-fragment
-IntegertypeSuffix
-:	[lL]
-;
+fragment IntegertypeSuffix: [lL];
 
-fragment
-DecimalNumeral
-	:	'0'
-|	NonZeroDigit (Digits? | Underscores Digits)
-	;
+fragment DecimalNumeral:
+	'0'
+	| NonZeroDigit (Digits? | Underscores Digits);
 
-	fragment
-	Digits
-	:	Digit (DigitsAndUnderscores? Digit)?
-	;
+fragment Digits: Digit (DigitsAndUnderscores? Digit)?;
 
-	fragment
-	Digit
-	:	'0'
-	|	NonZeroDigit
-	;
+fragment Digit: '0' | NonZeroDigit;
 
-	fragment
-	NonZeroDigit
-	:	[1-9]
-	;
+fragment NonZeroDigit: [1-9];
 
-	fragment
-	DigitsAndUnderscores
-	:	DigitOrUnderscore+
-	;
+fragment DigitsAndUnderscores: DigitOrUnderscore+;
 
-	fragment
-	DigitOrUnderscore
-	:	Digit
-	|	'_'
-	;
+fragment DigitOrUnderscore: Digit | '_';
 
-	fragment
-	Underscores
-	:	'_'+
-	;
+fragment Underscores: '_'+;
 
-	WS
-	:   [ \r\t\n]+ -> skip
-	;
+WS: [ \r\t\n]+ -> skip;
 
-	MULTILINE_COMMENT
-	:  '/*' .*? '*/' -> skip
-	;
-	LINE_COMMENT
-	:  '//' .*? '\n' -> skip
-	;
+MULTILINE_COMMENT: '/*' .*? '*/' -> skip;
+LINE_COMMENT: '//' .*? '\n' -> skip;

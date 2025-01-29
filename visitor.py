@@ -1,18 +1,17 @@
-from antlr.Java8Parser import Java8Parser
-from antlr.Java8ParserVisitor import Java8ParserVisitor
+from enum import EnumType
+
+from grammar.DecafParser import DecafParser
+from grammar.DecafVisitor import DecafVisitor
 
 
-class MyVisitor(Java8ParserVisitor):
+
+class MyVisitor(DecafVisitor):
     def __init__(self):
         super().__init__()
+        self.symbols = {}
 
-    def visitAssignment(self, ctx:Java8Parser.AssignmentContext):
-        lhs = ctx.leftHandSide().getText();
-        rhs = ctx.expression().getText();
-        op = ctx.assignmentOperator().getText();
-        # print(lhs,op, rhs)
-
-    def visitLocalVariableDeclaration(self, ctx:Java8Parser.LocalVariableDeclarationContext):
-        # print(ctx.variableModifier())
-        print(ctx.unannType().getText(), end = " ")
-        print(ctx.variableDeclaratorList().getText())
+    def visitMainClass(self, ctx:DecafParser.MainClassContext):
+        main_class_name = ctx.Identifier(0)
+        main_method_args_name = ctx.Identifier(1)
+        print(main_class_name)
+        print(main_method_args_name)
