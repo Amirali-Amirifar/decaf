@@ -10,7 +10,7 @@ class SymTableVisitor(DecafVisitor):
         super().__init__()
         # Configure logger
         self.logger = logging.getLogger("SymTableVisitor")
-        self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(logging.ERROR)
         
         # Remove any existing handlers to prevent duplicates
         self.logger.handlers = []

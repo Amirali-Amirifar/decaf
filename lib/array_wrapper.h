@@ -1,3 +1,9 @@
+/**
+* ArrayWrapper is a data type as part of the decaf standard library.
+* It is responsible for handling array operations for arrays allocated either in the heap
+* and in the stack.
+*/
+
 #ifndef ARRAY_WRAPPER_H
 #define ARRAY_WRAPPER_H
 

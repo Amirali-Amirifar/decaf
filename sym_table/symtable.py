@@ -53,7 +53,7 @@ class SymbolTable:
         
         # Create console handler with detailed formatting
         console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.DEBUG)
+        console_handler.setLevel(logging.ERROR)
         formatter = logging.Formatter('%(asctime)s - %(name)s - [%(levelname)s] - %(message)s - {Scope: %(scope)s}')
         console_handler.setFormatter(formatter)
         self.logger.addHandler(console_handler)
@@ -233,8 +233,7 @@ class SymbolTable:
 
     def print_table(self):
         """Print the entire symbol table in a readable format"""
-        import json
-        
+
         formatted_table = {}
         for scope, symbols in self.symbols.items():
             # Include all scopes, even empty ones
@@ -243,10 +242,5 @@ class SymbolTable:
                 # Convert the symbol representation to a dictionary
                 symbol_dict = eval(str(symbol))
                 formatted_table[scope][name] = symbol_dict
-        
-        self.logger.info(
-            "Symbol Table Contents:\n" + 
-            json.dumps(formatted_table, indent=2, sort_keys=True),
-            extra={'scope': self.current_scope}
-        )
+
         return formatted_table

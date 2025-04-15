@@ -8,7 +8,7 @@ class CodeGenVisitor(DecafVisitor):
     def __init__(self, symbol_table):
         super().__init__()
         self.logger = logging.getLogger("CodeGenVisitor")
-        self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(logging.ERROR)
         self.logger.handlers = []
         self.logger.handlers.clear()
         self.logger.propagate = False
@@ -44,12 +44,53 @@ class CodeGenVisitor(DecafVisitor):
         self.logger.debug("visitGoal started.")
         self.generateForwardDeclarations(ctx)
 
-        # Visit all other class declarations
-        self.logger.debug("visitGoal: visiting class declarations")
+        # First, generate all class struct definitions
+        self.logger.debug("visitGoal: generating class struct definitions")
         for class_decl in ctx.classDeclaration():
-            self.visit(class_decl)
-                
-        # Visit main class first
+            class_name = class_decl.Identifier(0).getText()
+            parent_class = None
+            if len(class_decl.Identifier()) > 1:
+                parent_class = class_decl.Identifier(1).getText()
+            
+            # Generate struct for class
+            self.emit(f"typedef struct {class_name} {{")
+            self.indentation += 1
+            
+            # If class extends another, include parent's fields first
+            if parent_class:
+                self.emit(f"// Inherited fields from {parent_class}")
+                self.emit(f"{parent_class} parent;  // Parent class fields")
+            
+            # Generate fields
+            for field in class_decl.fieldDeclaration():
+                self.visit(field)
+            
+            # Add vtable pointer if needed
+            if class_decl.methodDeclaration() or parent_class:
+                self.emit(f"struct {class_name}_vtable *vptr;")
+            
+            self.indentation -= 1
+            self.emit(f"}} {class_name};")
+            self.emit("")
+
+        # Then, generate all vtable structs
+        self.logger.debug("visitGoal: generating vtable structs")
+        for class_decl in ctx.classDeclaration():
+            if class_decl.methodDeclaration() or len(class_decl.Identifier()) > 1:
+                self.generateStructs(class_decl)
+
+        # Finally, generate constructors and method implementations
+        self.logger.debug("visitGoal: generating method implementations")
+        for class_decl in ctx.classDeclaration():
+            parent_class = None
+            if len(class_decl.Identifier()) > 1:
+                parent_class = class_decl.Identifier(1).getText()
+            self.generateConstructor(class_decl, parent_class)
+            for method in class_decl.methodDeclaration():
+                self.visit(method)
+                self.emit("")
+
+        # Visit main class last
         self.logger.debug("visitGoal: visiting main class.")
         self.visit(ctx.mainClass())
         
@@ -201,7 +242,8 @@ class CodeGenVisitor(DecafVisitor):
             'String': 'char*',
             'String[]': 'char**'
         }
-        return type_map.get(type, type)
+        # if its not in the map, its non-primitive and needs a pointer.
+        return type_map.get(type, type+"*")
     
     def visitMethodDeclaration(self, ctx: DecafParser.MethodDeclarationContext):
         class_name = ctx.parentCtx.Identifier(0).getText()
@@ -262,6 +304,7 @@ class CodeGenVisitor(DecafVisitor):
   
     def visitVarDeclaration(self, ctx: DecafParser.VarDeclarationContext):
         var_type = self.visit(ctx.type_())
+        
         var_name = ctx.Identifier().getText()
         self.emit(f"{var_type} {var_name};")
 
@@ -277,13 +320,7 @@ class CodeGenVisitor(DecafVisitor):
         # If we're in a class scope
         if class_scope and isinstance(class_scope, DecafParser.ClassDeclarationContext):
             class_name = class_scope.Identifier(0).getText()
-            found, parent_chain = self.is_class_field(var_name, class_name)
-            if found:
-                # Build the access chain: this->parent->parent->...->field
-                access_chain = "this"
-                for parent in parent_chain:
-                    access_chain += "->"+parent
-                var_name = f"{access_chain}->{var_name}"
+            var_name = self.build_access_chain(var_name, class_name)
         
         self.emit(f"{var_name} = {expression};")
 
@@ -320,13 +357,7 @@ class CodeGenVisitor(DecafVisitor):
         # If we're in a class scope
         if class_scope and isinstance(class_scope, DecafParser.ClassDeclarationContext):
             class_name = class_scope.Identifier(0).getText()
-            found, parent_chain = self.is_class_field(var_name, class_name)
-            if found:
-                # Build the access chain: this->parent->parent->...->field
-                access_chain = "this"
-                for parent in parent_chain:
-                    access_chain += "->"+parent
-                var_name = f"{access_chain}->{var_name}"
+            var_name = self.build_access_chain(var_name, class_name)
         
         self.emit(f"{var_name}->data[{index}] = {value};")
     
@@ -338,18 +369,6 @@ class CodeGenVisitor(DecafVisitor):
         expr = self.visit(ctx.expression(0))
         print("VISTI ")
         self.emit(f"{expr};")
-
-    def visitWhileStatement(self, ctx: DecafParser.WhileStatementContext):
-        self.logger.debug("Enter while statement")
-        condition = self.visit(ctx.expression())
-        if condition == None:
-            self.logger.error(f"Invalid while condition at {ctx.start.line}")
-            
-        self.emit(f"while ({condition}) {{")
-        self.indentation += 1
-        self.visit(ctx.whileBlock())
-        self.indentation -= 1
-        self.emit("}")
 
     def visitIntLitExpression(self, ctx: DecafParser.IntLitExpressionContext):
         self.logger.debug(f"Visiting integer literal expression: {ctx.getText()}")
@@ -454,6 +473,19 @@ class CodeGenVisitor(DecafVisitor):
         self.logger.debug("Visiting boolean literal expression")
         return ctx.BooleanLiteral().getText().lower()
 
+    def build_access_chain(self, var_name: str, class_name: str) -> str:
+        """Helper method to build the access chain for struct member access."""
+        found, parent_chain = self.is_class_field(var_name, class_name)
+        if found:
+            access_chain = "this"
+            for parent in parent_chain:
+                if isinstance(parent, str) and parent.startswith("."):
+                    access_chain += parent  # Use dot notation for direct struct access
+                else:
+                    access_chain += "->"+parent  # Use arrow for pointer access
+            return f"{access_chain}->{var_name}"
+        return var_name
+
     def visitIdentifierExpression(self, ctx: DecafParser.IdentifierExpressionContext) -> str:
         self.logger.debug("Visiting identifier expression")
         var_name = ctx.Identifier().getText()
@@ -466,27 +498,24 @@ class CodeGenVisitor(DecafVisitor):
         # If we're in a class scope
         if class_scope and isinstance(class_scope, DecafParser.ClassDeclarationContext):
             class_name = class_scope.Identifier(0).getText()
-            
-            # Check if this identifier is a field in the class
-            # We can determine this by checking if it's declared in the class scope
-            # but not in any method scope
-            method_scope = ctx.parentCtx
-            while method_scope and not isinstance(method_scope, DecafParser.MethodBodyContext):
-                method_scope = method_scope.parentCtx
-                
-            # If we're in a method and the variable is a class field
-            # or if we're not in a method (i.e., field declaration/initialization)
-            # then use this-> prefix
-            found, parent_chain = self.is_class_field(var_name, class_name)
-            if not method_scope or found:
-                # Build the access chain: this->parent->parent->...->field
-                access_chain = "this"
-                for parent in parent_chain:
-                    access_chain += "->"+parent
-                return f"{access_chain}->{var_name}"
+            return self.build_access_chain(var_name, class_name)
         
         return var_name
-        
+
+
+    def visitWhileStatement(self, ctx: DecafParser.WhileStatementContext):
+        self.logger.debug("Enter while statement")
+        condition = self.visit(ctx.expression())
+        if condition == None:
+            self.logger.error(f"Invalid while condition at {ctx.start.line}")
+
+        self.emit(f"while ({condition}) {{")
+        self.indentation += 1
+        self.visit(ctx.whileBlock())
+        self.indentation -= 1
+        self.emit("}")
+
+
     def is_class_field(self, var_name: str, class_name: str) -> tuple[bool, list[str]]:
         """
         Check if an identifier `var` is in the class scope and return the chain of parent classes if found
@@ -500,7 +529,8 @@ class CodeGenVisitor(DecafVisitor):
         if parent:
             found, parent_chain = self.is_class_field(var_name, parent)
             if found:
-                return True, ["parent"] + parent_chain
+                # Use dot notation for parent field access
+                return True, ["parent"] if not parent_chain else ["parent"] + ["." + p for p in parent_chain]
         return False, []
 
     def visitThisExpression(self, ctx: DecafParser.ThisExpressionContext) -> str:
@@ -517,25 +547,39 @@ class CodeGenVisitor(DecafVisitor):
         return [self.visit(expr) for expr in expressions]
 
     def generateForwardDeclarations(self, ctx: DecafParser.GoalContext):
-        # Forward declare all classes as structs
+        # Forward declare all classes as structs first
+        self.emit("// Forward declarations for all classes")
         for class_decl in ctx.classDeclaration():
             class_name = class_decl.Identifier(0).getText()
             self.emit(f"typedef struct {class_name} {class_name};")
+        self.emit("")
         
-        # Add forward declarations for all methods
-        for method in class_decl.methodDeclaration():
-            return_type = self.visit(method.type_())
-            method_name = method.Identifier().getText()
-            params = [f"{class_name}* this"]
-            if method.parameterList():
-                param_types = [f"{self.visit(param.type_())} {param.Identifier().getText()}" 
-                             for param in method.parameterList().parameter()]
-                params.extend(param_types)
-            self.emit(f"{return_type} {class_name}_{method_name}({', '.join(params)});")
+        # Forward declare vtable structs
+        self.emit("// Forward declarations for vtable structs")
+        for class_decl in ctx.classDeclaration():
+            class_name = class_decl.Identifier(0).getText()
+            if class_decl.methodDeclaration() or len(class_decl.Identifier()) > 1:
+                self.emit(f"struct {class_name}_vtable;")
+        self.emit("")
         
-        # Add forward declaration for init function
-        constructor_name = get_constant("init_function_name")
-        self.emit(f"int {class_name}{constructor_name}({class_name}* this);")
+        # Forward declare all methods
+        self.emit("// Forward declarations for all methods")
+        for class_decl in ctx.classDeclaration():
+            class_name = class_decl.Identifier(0).getText()
+            # Add forward declarations for all methods
+            for method in class_decl.methodDeclaration():
+                return_type = self.visit(method.type_())
+                method_name = method.Identifier().getText()
+                params = [f"{class_name}* this"]
+                if method.parameterList():
+                    param_types = [f"{self.visit(param.type_())} {param.Identifier().getText()}" 
+                                 for param in method.parameterList().parameter()]
+                    params.extend(param_types)
+                self.emit(f"{return_type} {class_name}_{method_name}({', '.join(params)});")
+            
+            # Add forward declaration for init function
+            constructor_name = get_constant("init_function_name")
+            self.emit(f"int {class_name}{constructor_name}({class_name}* this);")
         self.emit("")
     
     def indent(self) -> str:
@@ -550,6 +594,6 @@ class CodeGenVisitor(DecafVisitor):
 
     def freeMemory(self):
         for var in self.memory_allocations: 
-            self.emit(f"free({var});")
-            self.emit(f"{var} = NULL;")
+            self.emit(f"// free({var});")
+            self.emit(f"// {var} = NULL;")
         self.memory_allocations = []
