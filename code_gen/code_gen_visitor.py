@@ -214,7 +214,7 @@ class CodeGenVisitor(DecafVisitor):
         # Generate function pointers for each method
         for method in ctx.methodDeclaration():
             return_type = self.visit(method.type_())
-            if return_type == None:
+            if return_type is None:
                 self.logger.error(f"None return type detected at {ctx.start.line}")
                 continue
             method_name = method.Identifier().getText()
@@ -232,18 +232,17 @@ class CodeGenVisitor(DecafVisitor):
         self.emit("")
     
     def visitType(self, ctx: DecafParser.TypeContext):
-        type = ctx.getText()
+        token_type = ctx.getText()
         type_map = {
             'int':'int',
             'boolean': 'bool',
             'void': 'void',
-            # 'int[]': 'int*',
             'int[]': 'ArrayWrapper*',
             'String': 'char*',
             'String[]': 'char**'
         }
-        # if its not in the map, its non-primitive and needs a pointer.
-        return type_map.get(type, type+"*")
+        # if it;s not in the map, its non-primitive and needs a pointer.
+        return type_map.get(token_type, token_type + "*")
     
     def visitMethodDeclaration(self, ctx: DecafParser.MethodDeclarationContext):
         class_name = ctx.parentCtx.Identifier(0).getText()
@@ -324,13 +323,6 @@ class CodeGenVisitor(DecafVisitor):
         
         self.emit(f"{var_name} = {expression};")
 
-    def visitBlockStatement(self, ctx: DecafParser.StatementContext):
-        self.emit("{")
-        self.indentation += 1
-        self.visit(ctx.block())
-        self.indentation -= 1
-        self.emit("}")
-    
     def visitIfElseStatement(self, ctx: DecafParser.IfElseStatementContext):
         self.logger.debug("Enter if Statement")
         condition = self.visit(ctx.expression())
@@ -367,7 +359,6 @@ class CodeGenVisitor(DecafVisitor):
 
     def visitExpressionStatement(self, ctx: DecafParser.StatementContext):
         expr = self.visit(ctx.expression(0))
-        print("VISTI ")
         self.emit(f"{expr};")
 
     def visitIntLitExpression(self, ctx: DecafParser.IntLitExpressionContext):
@@ -506,7 +497,7 @@ class CodeGenVisitor(DecafVisitor):
     def visitWhileStatement(self, ctx: DecafParser.WhileStatementContext):
         self.logger.debug("Enter while statement")
         condition = self.visit(ctx.expression())
-        if condition == None:
+        if condition is None:
             self.logger.error(f"Invalid while condition at {ctx.start.line}")
 
         self.emit(f"while ({condition}) {{")

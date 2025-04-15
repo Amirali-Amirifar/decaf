@@ -198,40 +198,6 @@ class SymTableVisitor(DecafVisitor):
         if value_type != 'int':
             self.logger.error(f"Type error: Array element must be int, got {value_type}")
 
-    def visitMethodDeclaration(self, ctx:DecafParser.MethodDeclarationContext):
-        method_name = ctx.Identifier().getText()
-        return_type = self.visit(ctx.type_())
-        self.logger.info(f"Visiting method declaration: {method_name} -> {return_type}")
-        
-        # Collect parameters first
-        parameters = []
-        if ctx.parameterList():
-            for param in ctx.parameterList().parameter():
-                param_type = self.visit(param.type_())
-                param_name = param.Identifier().getText()
-                parameters.append({param_name: param_type})
-                self.logger.debug(f"Method parameter: {param_name}: {param_type}")
-        
-        # Declare method in the current scope
-        if not self.symTable.declare_method(name=method_name, return_type=return_type, parameters=parameters):
-            self.logger.error(f"Failed to declare method {method_name}")
-            return
-        
-        # Enter method scope after declaring it
-        self.symTable.enter_scope(scope_name=method_name)
-        
-        # Declare parameters in the method scope
-        for param in parameters:
-            for param_name, param_type in param.items():
-                if not self.symTable.declare_variable(name=param_name, type_str=param_type):
-                    self.logger.error(f"Failed to declare parameter {param_name}")
-        
-        # Visit method body
-        self.visitChildren(ctx)
-        
-        self.logger.debug(f"Exiting method scope: {method_name}")
-        self.symTable.exit_scope()
-
     def visitVarDeclaration(self, ctx:DecafParser.VarDeclarationContext):
         var_type = self.visit(ctx.type_())
         var_name = ctx.Identifier().getText()
