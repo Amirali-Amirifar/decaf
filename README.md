@@ -12,6 +12,7 @@ While all Mini Java programs are valid Java, the reverse isn't true—allowing f
 - [Architecture & Implementation](#architecture--implementation)
 - [Key Features](#key-features)
 - [Getting Started](#getting-started)
+- [Useful refrences](#useful-refrences)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -128,6 +129,9 @@ To get started with the Decaf transpiler, follow these steps:
    python3 main.py ./examples/quick_sort/Main.java
    ```
    an executable, a C and assembly output, required lib headers and a view of symbol table as json will be emitted in the target directory.
+
+## Useful Refrences 
+- [MiniJava Language Reference Manual](https://www.cs.tufts.edu/~sguyer/classes/comp181-2006/minijava.html)
 
 ## Contributing
 
