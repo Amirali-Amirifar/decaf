@@ -132,7 +132,7 @@ To get started with the Decaf transpiler, follow these steps:
 
 ## Useful Refrences 
 - [MiniJava Language Reference Manual](https://www.cs.tufts.edu/~sguyer/classes/comp181-2006/minijava.html)
-
+- [Virtual Method Table](https://en.wikipedia.org/wiki/Virtual_method_table)
 ## Contributing
 
 Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
