@@ -1,77 +1,138 @@
-# Decaf Compiler
+# Decaf
 
-A compiler implementation for the Decaf programming language, which is a subset of Java. This compiler translates Decaf source code into C code, providing object-oriented programming features in a simplified context.
+Decaf is a lightweight transpiler that converts a subset of Java—called Mini Java—into C, enabling native binary generation. I built this project from the ground up to deepen my understanding of compiler design, systems programming, and language semantics.
 
-## Project Architecture
+Decaf walks through the full compiler pipeline—lexical analysis, parsing, semantic analysis, and code generation—offering a clear and practical look at how high-level code is transformed into low-level instructions. This project reflects my ability to design robust tooling, write safe and efficient C output, and work with systems-level concerns such as memory layout, type systems, and object-oriented dispatch in a lower-level language.
 
-The compiler is organized into several main components:
+While all Mini Java programs are valid Java, the reverse isn't true—allowing for focused experimentation and safe compilation boundaries.
 
-### 1. Grammar Definition (grammar/Decaf.g4)
+## Table of Contents
 
-The project uses ANTLR4 for lexical analysis and parsing. The grammar defines:
-- Object-oriented programming constructs
-- Basic control structures (if-else, while)
-- Array operations
-- Method declarations and invocations
-- Expression handling (arithmetic, logical, method calls)
+- [Example Outputs](#example-outputs)
+- [Architecture & Implementation](#architecture--implementation)
+- [Key Features](#key-features)
+- [Getting Started](#getting-started)
+- [Contributing](#contributing)
+- [License](#license)
 
-Key features:
-- Class declarations with inheritance support
-- Main class requirement
-- Type system (int, boolean, arrays, user-defined types)
-- Method parameter handling
 
-### 2. Symbol Table Management (sym_table/)
+## Example Outputs
 
-The symbol table implementation provides scope management and symbol tracking:
+Here’s a simple factorial program written in Mini Java:
 
-- Hierarchical scope handling (global, class, method, block)
-- Symbol attributes tracking:
-  - Name and type information
-  - Scope information
-  - Initialization status
-  - Method parameters and return types
-  - Class inheritance information
-  - Array type handling
 
-### 3. Code Generation (code_gen/)
+```java
+class Fac {
+    public int ComputeFac(int num) {
+        int num_aux;
+        if (num < 1)
+            num_aux = 1;
+        else
+            num_aux = num * (this.ComputeFac(num - 1));
+        return num_aux;
+    }
+}
+```
 
-The code generator translates Decaf to C code using a visitor pattern:
+This gets transpiled to the following C code with virtual method table support:
 
-- Class translation to C structs
-- Virtual method table (vtable) generation for inheritance
-- Constructor generation
-- Method implementation
-- Expression evaluation
-- Statement translation
-- Array operations support
 
-## Features
 
-- Object-oriented programming support
-- Inheritance with virtual method tables
-- Array operations with bounds checking
-- Type checking and scope analysis
-- Memory management
-- Error reporting and logging
+```C
+typedef struct Fac Fac;
 
-## Implementation Details
+struct Fac_vtable;
 
-1. **Grammar Processing**:
-   - ANTLR4 generates lexer and parser
-   - Supports Java-like syntax
-   - Handles expressions with operator precedence
+int Fac_ComputeFac(Fac* this, int num);
+int Fac__decaf__init(Fac* this);
 
-2. **Symbol Management**:
-   - Scope-based symbol tracking
-   - Type checking support
-   - Inheritance chain validation
-   - Method overriding verification
+typedef struct Fac {
+    struct Fac_vtable *vptr;
+} Fac;
 
-3. **Code Generation**:
-   - C code generation with struct-based objects
-   - Virtual method table implementation
-   - Constructor chaining for inheritance
-   - Array bounds checking
-   - Standard library integration
+struct Fac_vtable {
+    int (*ComputeFac)(Fac*, int);
+};
 
+int Fac__decaf__init(Fac* this) {
+    static struct Fac_vtable vtable = {
+        .ComputeFac = Fac_ComputeFac,
+    };
+    this->vptr = &vtable;
+    return 0;
+}
+
+int Fac_ComputeFac(Fac* this, int num) {
+    int num_aux;
+    if (num < 1) {
+        num_aux = 1;
+    } else {
+        num_aux = num * (this->vptr->ComputeFac(this, num - 1));
+    }
+    return num_aux;
+}
+```
+
+You can find more examples [here](https://github.com/Amirali-Amirifar/decaf/tree/main/examples).
+
+## Architecture & Implementation
+### Compiler Phases
+
+The compiler is divided into the following phases:
+
+#### Grammar Definition (ANTLR4)
+- Custom Mini Java grammar for parsing object-oriented constructs, control structures, array operations, and expressions.
+
+#### Semantic Analysis
+- Scoped symbol tables track declarations, variable lifetimes, and basic type information. Includes hierarchical scoping and shadowing.
+
+#### Code Generation
+- Uses a visitor pattern to generate C code, simulating Java-style OOP with C structs and vtables. Supports method dispatch, constructors, and control flow.
+
+#### Compilation
+- The generated C code can be compiled with gcc to produce efficient native binaries.
+
+### Known Limitations
+
+* Type checking is minimal (future enhancement planned)
+* Memory deallocation not yet implemented
+* Some false positives in semantic checks
+
+### Key Features
+- Mini Java to C transpilation
+- Object-oriented constructs (classes, methods, inheritance)
+- Virtual method dispatch via vtables
+- dynamic and static array allocations 
+- Basic type checking and error reporting
+- Real-world compiler phases modeled cleanly
+
+
+## Getting Started
+
+To get started with the Decaf transpiler, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   # Clone the repo
+   git clone https://github.com/Amirali-Amirifar/decaf.git
+   cd decaf
+
+   # Set up virtualenv
+   python3 -m venv .venv
+   source .venv/bin/activate
+
+   # Install dependencies
+   pip install -r requirements.txt
+
+   # Run the transpiler
+   python3 main.py ./examples/quick_sort/Main.java
+   ```
+   an executable, a C and assembly output, required lib headers and a view of symbol table as json will be emitted in the target directory.
+
+## Contributing
+
+Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
